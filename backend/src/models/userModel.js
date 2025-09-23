@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         min: [6, "Password must have atleat 6 characters"],
         trim: true,
-    }, 
+    },
     role: {
         type: String,
         required: true,
@@ -40,5 +40,28 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
+
+userSchema.pre("save", async function (next) {
+    const salt = await bcrypt.genSalt(12);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
+
+userSchema.methods.generateJWTFromUser = function () {
+    const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
+    payload = {
+        id: this._id,
+        email: this.email,
+        role: this.role,
+    }
+    const token = jwt.sign(payload, JWT_SECRET_KEY, {
+        expiresIn: JWT_EXPIRE
+    })
+    return token;
+}
+
+userSchema.methods.comparePassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model("userCollection", userSchema);

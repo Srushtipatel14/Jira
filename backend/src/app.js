@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const errorHandler = require("./helpers/errors/errorHandler");
+const ErrorHandler  = require("./helpers/errors/errorHandler");
 const cors = require("cors");
 const cookieparser=require("cookie-parser");
 app.use(express.json());
@@ -21,12 +21,14 @@ app.use(cookieparser());
 
 const adminRouter = require("./routes/adminroute");
 const memberRouter = require("./routes/memberroute");
+const authRouter=require("./routes/authroute")
 
-app.use("/api/auth/admin", adminRouter);
-app.use("/api/auth/member", memberRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/member", memberRouter);
+app.use("/auth",authRouter);
 
 app.use((err, req, res, next) => {
-    if (err instanceof errorHandler) {
+    if (err instanceof ErrorHandler ) {
         return res.status(err.statusCode).json({
             statusCode: err.statusCode,
             message: err.message,

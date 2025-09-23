@@ -3,7 +3,7 @@ const sendToken = async (user, statusCode, res) => {
     res.cookie('token', token, {
         httpOnly: true,
         secure: false,
-        maxAge: 10 * 24 * 60 * 60 * 1000,
+        maxAge:60 * 60 * 1000,
         sameSite: 'lax'
     });
     return res.status(statusCode).json({
@@ -11,7 +11,6 @@ const sendToken = async (user, statusCode, res) => {
         user: user.firstName,
         email: user.email,
         role: user.role,
-        imageURL: user.imageURL,
     })
 };
 
