@@ -47,13 +47,11 @@ const taskSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         required: true
     },
-    assignId: [{
-        userId: {
-            type: mongoose.Schema.ObjectId,
-            required: true,
-            ref: "userCollection",
-        }
-    }]
+    assignId: {
+        type: mongoose.Schema.ObjectId,
+        required: true,
+        ref: "userCollection",
+    }
 },
     { timestamps: true }
 );
