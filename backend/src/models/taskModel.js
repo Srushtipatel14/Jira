@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const projectSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -43,6 +43,10 @@ const projectSchema = new mongoose.Schema({
         type: Boolean,
         required: false
     },
+    createdBy: {
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
     assignId: [{
         userId: {
             type: mongoose.Schema.ObjectId,
@@ -55,4 +59,4 @@ const projectSchema = new mongoose.Schema({
 );
 
 
-module.exports = mongoose.model("projectCollection", projectSchema);
+module.exports = mongoose.model("taskCollection", taskSchema);
