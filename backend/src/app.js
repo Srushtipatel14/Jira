@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieparser=require("cookie-parser");
 app.use(express.json());
 const allowedOrigins = ['http://localhost:3000'];
+
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -25,7 +26,7 @@ const authRouter=require("./routes/authroute")
 
 app.use("/api/admin", adminRouter);
 app.use("/api/member", memberRouter);
-app.use("/auth",authRouter);
+app.use("/api/auth",authRouter);
 
 app.use((err, req, res, next) => {
     if (err instanceof ErrorHandler ) {

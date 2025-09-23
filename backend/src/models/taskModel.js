@@ -22,9 +22,9 @@ const projectSchema = new mongoose.Schema({
         },
         default: "pending"
     },
-    duedate:{
-        type:Date,
-        required:true
+    duedate: {
+        type: Date,
+        required: true
     },
     priority: {
         type: String,
@@ -38,6 +38,10 @@ const projectSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         required: true,
         ref: "projectCollection",
+    },
+    isDelete: {
+        type: Boolean,
+        required: false
     },
     assignId: [{
         userId: {

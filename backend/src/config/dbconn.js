@@ -1,4 +1,4 @@
-require('dotenv').config({ debug: false, override: true });
+require('dotenv').config();
 
 const mongoose=require("mongoose");
 
